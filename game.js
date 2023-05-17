@@ -17,6 +17,7 @@ class middle extends Phaser.Scene {
         super('middle')
     }
     create(){
+        this.scene.remove('stage1')
         this.textObject = this.add.text(60, 192, "Bad news. It turns out the host of the reunion says everyone can invite their friends, and of course everyone will.\nWe’re gonna need more apples! Will this pie even fit on the table?", {font: "30px Trebuchet MS", color: "#000000",});
         this.textObject2 = this.add.text(1280, 500, `Continue`, {font: "30px Trebuchet MS",color: "#000000",})
             .setInteractive()
@@ -31,6 +32,7 @@ class middle2 extends Phaser.Scene {
         super('middle2')
     }
     create(){
+        this.scene.remove('stage2')
         this.textObject = this.add.text(60, 192, 'Johnny is exhausted. He’s gotten so mad over making the great apple pie in existence, that he has searched the entire earth\nand gotten every apple left. Johnny says, “A pie made out of just earth apples will not do!”', {font: "30px Trebuchet MS", color: "#000000",});
         this.textObject2 = this.add.text(1280, 500, `Continue`, {font: "30px Trebuchet MS",color: "#000000",})
             .setInteractive()
@@ -48,7 +50,9 @@ class end extends Phaser.Scene {
 
     }
     create(){
-        this.end = this.add.image(960, 440, 'end')
+        this.scene.remove('stage3')
+        this.textObject = this.add.text(60, 400, 'In the end, the pie was so big Johnny needed aliens to focus the sun onto the pie to bake it. He invited everyone in the universe to eat\nthe pie, and it was the greatest ever made', {font: "30px Trebuchet MS", color: "#000000",});
+        this.end = this.add.image(990, 640, 'end')
             .setScale(1.5)
     }
 }
@@ -65,6 +69,7 @@ class stage1 extends Phaser.Scene {
         this.load.image('human', 'Human.png')
     }
     create(){
+        this.scene.remove('intro')
         this.platforms = this.physics.add.staticGroup();
         this.platforms.create(700, 1000, 'floor')//.setScale(3);
         this.platforms.create(300, 700, 'house').setSize(150, 160)
@@ -117,12 +122,14 @@ class stage1 extends Phaser.Scene {
             this.player.setVelocityX(this.curvelocity);
 
         }
-
+        if(this.player.body.touching.down){
+            this.player.airjump = true;
+        }
         if (up.isDown && this.player.body.touching.down)
         {
             this.player.setVelocityY(-430);
             this.recenttime = this.game.getTime();
-            this.player.airjump = true;
+            //this.player.airjump = true;
             //up.timeUp = up.timeDown
         }
         else if ((this.player.body.touching.down == false) && ((this.game.getTime() - this.recenttime) > 500) && this.player.airjump && up.isDown){
@@ -153,6 +160,7 @@ class stage2 extends Phaser.Scene {
         this.load.image('cloud', 'Cloud.png')
     }
     create(){
+        this.scene.remove('middle')
         this.platforms = this.physics.add.staticGroup();
         this.platforms.create(700, 1225, 'floor')
         //this.add.image(500, 760, 'hill').setAlpha(0.9)
@@ -218,12 +226,14 @@ class stage2 extends Phaser.Scene {
             this.player.setVelocityX(this.curvelocity);
 
         }
-
+        if(this.player.body.touching.down){
+            this.player.airjump = true;
+        }
         if (up.isDown && this.player.body.touching.down)
         {
             this.player.setVelocityY(-430);
             this.recenttime = this.game.getTime();
-            this.player.airjump = true;
+            //this.player.airjump = true;
             //up.timeUp = up.timeDown
         }
         else if ((this.player.body.touching.down == false) && ((this.game.getTime() - this.recenttime) > 500) && this.player.airjump && up.isDown){
@@ -249,7 +259,7 @@ class stage3 extends Phaser.Scene {
     }
     preload(){
         this.load.path = './assets/';
-        this.load.image('floor', 'MoonPlatform.png')
+        this.load.image('moonfloor', 'MoonPlatform.png')
         this.load.image('star', 'Star.png')
         this.load.image('apple', 'Apple.png')
         this.load.image('human', 'Human.png')
@@ -258,10 +268,11 @@ class stage3 extends Phaser.Scene {
 
     }
     create(){
-        this.cameras.main.setBackgroundColor('#201F3D')
+        this.scene.remove('middle2')
+        //this.cameras.main.setBackgroundColor('#201F3D')
         this.platforms = this.physics.add.staticGroup();
-        this.platforms.create(500, 1010, 'floor').setSize(1000, 140).setScale(5)
-        this.platforms.create(1500, 1010, 'floor').setSize(1000, 140).setScale(5)
+        this.platforms.create(500, 1010, 'moonfloor').setSize(1000, 140).setScale(5)
+        this.platforms.create(1500, 1010, 'moonfloor').setSize(1000, 140).setScale(5)
         this.apples = this.physics.add.staticGroup();
         this.apples.create(1200, 910, 'apple').setScale(0.5)
         this.apples.create(200, 910, 'apple').setScale(0.5)
@@ -273,9 +284,9 @@ class stage3 extends Phaser.Scene {
         this.apples.create(425, 185, 'apple').setScale(0.5)
         this.apples.create(135, 115, 'apple').setScale(0.5)
         this.add.image(100, 150, 'star').setScale(0.5)
-        this.platforms.create(500, 650, 'floor').setSize(400, 56).setScale(2)
-        this.platforms.create(1300, 750, 'floor').setSize(400, 56).setScale(2)
-        this.platforms.create(990, 375, 'floor').setSize(400, 56).setScale(2)
+        this.platforms.create(500, 650, 'moonfloor').setSize(400, 56).setScale(2)
+        this.platforms.create(1300, 750, 'moonfloor').setSize(400, 56).setScale(2)
+        this.platforms.create(990, 375, 'moonfloor').setSize(400, 56).setScale(2)
         this.player = this.physics.add.sprite(500, 850, 'human').setScale(0.3)
         this.player.airjump = false;
         this.player.setCollideWorldBounds(true);
@@ -313,12 +324,14 @@ class stage3 extends Phaser.Scene {
             this.player.setVelocityX(this.curvelocity);
 
         }
-
+        if(this.player.body.touching.down){
+            this.player.airjump = true;
+        }
         if (up.isDown && this.player.body.touching.down)
         {
             this.player.setVelocityY(-430);
             this.recenttime = this.game.getTime();
-            this.player.airjump = true;
+
             //up.timeUp = up.timeDown
         }
         else if ((this.player.body.touching.down == false) && ((this.game.getTime() - this.recenttime) > 500) && this.player.airjump && up.isDown){
@@ -344,12 +357,12 @@ const config = {
     height: 1080,
     backgroundColor: 0x87CEEB,
     //scene: stage1,
-    scene: [stage3, stage1, middle, stage2, middle2, intro, end],
+    scene: [intro, stage1, middle, stage2, middle2, stage3, end],
     physics: {
         default: 'arcade',
         arcade: {
             gravity: { y: 600 },
-            debug: true
+            debug: false
         }
     },
 }
