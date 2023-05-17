@@ -33,7 +33,7 @@ class middle2 extends Phaser.Scene {
     }
     create(){
         this.scene.remove('stage2')
-        this.textObject = this.add.text(60, 192, 'Johnny is exhausted. He’s gotten so mad over making the great apple pie in existence, that he has searched the entire earth\nand gotten every apple left. Johnny says, “A pie made out of just earth apples will not do!”', {font: "30px Trebuchet MS", color: "#000000",});
+        this.textObject = this.add.text(60, 192, 'Johnny is exhausted. He’s gotten so mad over making the great apple pie in existence, that he has searched the entire earth\nand has gotten every apple left. Johnny says, “A pie made out of just earth apples will not do!”', {font: "30px Trebuchet MS", color: "#000000",});
         this.textObject2 = this.add.text(1280, 500, `Continue`, {font: "30px Trebuchet MS",color: "#000000",})
             .setInteractive()
             .on('pointerdown', () => {this.scene.start('stage3')})
@@ -51,7 +51,7 @@ class end extends Phaser.Scene {
     }
     create(){
         this.scene.remove('stage3')
-        this.textObject = this.add.text(60, 400, 'In the end, the pie was so big Johnny needed aliens to focus the sun onto the pie to bake it. He invited everyone in the universe to eat\nthe pie, and it was the greatest ever made', {font: "30px Trebuchet MS", color: "#000000",});
+        this.textObject = this.add.text(60, 400, 'In the end, the pie was so big Johnny needed aliens to focus the sun onto the pie to bake it. He invited everyone in the universe to eat\nthe pie, and it was the greatest ever made.', {font: "30px Trebuchet MS", color: "#000000",});
         this.end = this.add.image(990, 640, 'end')
             .setScale(1.5)
     }
